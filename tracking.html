@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Location Tracking</title>
+
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef5ff;
+            color: #24344d;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            background: darkblue;
+            padding: 18px 35px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            color: white;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: darkblue;
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #60708a;
+            margin-bottom: 30px;
+        }
+
+        /* TRACKING CARD */
+
+        .tracking-card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+
+            margin-bottom: 25px;
+        }
+
+        .tracking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tracking-header h2 {
+            margin: 0;
+            color: darkblue;
+        }
+
+        /* STATUS */
+
+        .status {
+            padding: 9px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status.active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.stopped {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* BUTTONS */
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            padding: 13px 22px;
+            border-radius: 8px;
+
+            background: #1769e0;
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0d4fa8;
+        }
+
+        #stopBtn {
+            background: #dc3545;
+        }
+
+        #stopBtn:hover {
+            background: #b02a37;
+        }
+
+        /* LOCATION INFORMATION */
+
+        .location-info {
+            margin-top: 25px;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .info-box {
+            background: #f4f8ff;
+            border-radius: 12px;
+            padding: 18px;
+
+            border-left: 5px solid #1769e0;
+        }
+
+        .info-box h3 {
+            margin: 0 0 8px;
+            color: darkblue;
+            font-size: 16px;
+        }
+
+        .info-box p {
+            margin: 0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* MAP */
+
+        #map {
+            width: 100%;
+            height: 450px;
+
+            margin-top: 25px;
+
+            border-radius: 15px;
+            overflow: hidden;
+
+            border: 2px solid #d8e3f5;
+        }
+
+        /* MESSAGE */
+
+        #message {
+            text-align: center;
+            margin-top: 18px;
+            font-weight: bold;
+        }
+
+        /* PRIVACY */
+
+        .privacy-note {
+            margin-top: 25px;
+
+            background: #eef6ff;
+            padding: 15px;
+
+            border-radius: 10px;
+
+            color: #345;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            margin-top: 50px;
+            background: darkblue;
+            color: white;
+
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 15px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .container {
+                width: 94%;
+                margin: 25px auto;
+            }
+
+            .tracking-card {
+                padding: 20px;
+            }
+
+            .location-info {
+                grid-template-columns: 1fr;
+            }
+
+            #map {
+                height: 350px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <div class="logo">
+            🏠 Hostel Outpass
+        </div>
+
+        <div class="nav-links">
+
+            <a href="home.html">Home</a>
+
+            <a href="index.html">Apply</a>
+
+            <a href="status.html">Status</a>
+
+            <a href="tracking.html">Tracking</a>
+
+            <a href="admin.html">Admin</a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN CONTENT -->
+
+    <div class="container">
+
+        <h1>
+            STUDENT LOCATION TRACKING
+        </h1>
+
+        <p class="subtitle">
+            Track the student's current location after the outpass is approved.
+        </p>
+
+
+        <!-- TRACKING CARD -->
+
+        <div class="tracking-card">
+
+            <div class="tracking-header">
+
+                <h2>
+                    📍 Live Location
+                </h2>
+
+                <span id="trackingStatus"
+                      class="status">
+                    Tracking Stopped
+                </span>
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button id="startBtn">
+                    📍 Start Location Tracking
+                </button>
+
+                <button id="stopBtn">
+                    ⏹ Stop Tracking
+                </button>
+
+            </div>
+
+
+            <!-- LOCATION DETAILS -->
+
+            <div class="location-info">
+
+                <div class="info-box">
+
+                    <h3>
+                        Latitude
+                    </h3>
+
+                    <p id="latitude">
+                        Waiting...
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h3>
+                        Longitude
+                    </h3>
+
+                    <p id="longitude">
+                        Waiting...
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h3>
+                        Last Updated
+                    </h3>
+
+                    <p id="lastUpdated">
+                        Waiting...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MAP -->
+
+            <div id="map"></div>
+
+
+            <p id="message">
+                Click "Start Location Tracking" to share the current location.
+            </p>
+
+
+            <!-- PRIVACY NOTE -->
+
+            <div class="privacy-note">
+
+                🔒 <b>Privacy & Security:</b>
+
+                Location information should only be visible
+                to authorized users such as the student,
+                parent, administrator and security guard.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            Hostel Outpass Management System
+        </p>
+
+        <p>
+            © 2026 All Rights Reserved
+        </p>
+
+    </footer>
+
+
+    <!-- LEAFLET MAP JAVASCRIPT -->
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+
+    <script>
+
+        let map = null;
+
+        let marker = null;
+
+        let watchId = null;
+
+
+        const startBtn =
+            document.getElementById("startBtn");
+
+        const stopBtn =
+            document.getElementById("stopBtn");
+
+        const latitude =
+            document.getElementById("latitude");
+
+        const longitude =
+            document.getElementById("longitude");
+
+        const lastUpdated =
+            document.getElementById("lastUpdated");
+
+        const message =
+            document.getElementById("message");
+
+        const trackingStatus =
+            document.getElementById("trackingStatus");
+
+
+        /*
+        --------------------------------
+        START LOCATION TRACKING
+        --------------------------------
+        */
+
+        startBtn.addEventListener("click", function () {
+
+            if (!navigator.geolocation) {
+
+                message.innerText =
+                    "❌ Geolocation is not supported by this browser.";
+
+                return;
+            }
+
+
+            message.innerText =
+                "📍 Getting your current location...";
+
+
+            trackingStatus.innerText =
+                "Tracking Active";
+
+            trackingStatus.classList.add("active");
+
+
+            /*
+            Watch position continuously
+            */
+
+            watchId =
+                navigator.geolocation.watchPosition(
+
+                    updateLocation,
+
+                    locationError,
+
+                    {
+                        enableHighAccuracy: true,
+                        maximumAge: 5000,
+                        timeout: 10000
+                    }
+
+                );
+
+        });
+
+
+        /*
+        --------------------------------
+        UPDATE LOCATION
+        --------------------------------
+        */
+
+        function updateLocation(position) {
+
+            const lat =
+                position.coords.latitude;
+
+            const lon =
+                position.coords.longitude;
+
+
+            /*
+            Display latitude
+            */
+
+            latitude.innerText =
+                lat.toFixed(6);
+
+
+            /*
+            Display longitude
+            */
+
+            longitude.innerText =
+                lon.toFixed(6);
+
+
+            /*
+            Display time
+            */
+
+            const now =
+                new Date();
+
+            lastUpdated.innerText =
+                now.toLocaleTimeString();
+
+
+            message.innerText =
+                "✅ Student's current location is being tracked.";
+
+
+            /*
+            Create map first time
+            */
+
+            if (map === null) {
+
+                map =
+                    L.map("map").setView(
+                        [lat, lon],
+                        16
+                    );
+
+
+                /*
+                OpenStreetMap
+                */
+
+                L.tileLayer(
+                    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                    {
+                        maxZoom: 19,
+                        attribution:
+                            "&copy; OpenStreetMap contributors"
+                    }
+                ).addTo(map);
+
+
+                /*
+                Create marker
+                */
+
+                marker =
+                    L.marker(
+                        [lat, lon]
+                    ).addTo(map);
+
+
+                marker.bindPopup(
+                    "📍 Student's Current Location"
+                ).openPopup();
+
+            }
+
+
+            /*
+            Update existing marker
+            */
+
+            else {
+
+                marker.setLatLng(
+                    [lat, lon]
+                );
+
+
+                map.setView(
+                    [lat, lon],
+                    16
+                );
+
+            }
+
+        }
+
+
+        /*
+        --------------------------------
+        LOCATION ERROR
+        --------------------------------
+        */
+
+        function locationError(error) {
+
+            trackingStatus.innerText =
+                "Location Error";
+
+            trackingStatus.classList.remove("active");
+
+            message.innerText =
+                "❌ Unable to get location. Please allow location permission.";
+
+        }
+
+
+        /*
+        --------------------------------
+        STOP TRACKING
+        --------------------------------
+        */
+
+        stopBtn.addEventListener("click", function () {
+
+            if (watchId !== null) {
+
+                navigator.geolocation.clearWatch(
+                    watchId
+                );
+
+                watchId = null;
+
+            }
+
+
+            trackingStatus.innerText =
+                "Tracking Stopped";
+
+            trackingStatus.classList.remove("active");
+
+
+            message.innerText =
+                "⏹ Location tracking has been stopped.";
+
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Hostel Outpass Management System</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef5ff;
+            color: #24344d;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            background: darkblue;
+            padding: 18px 35px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            color: white;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= MAIN ================= */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 50px auto;
+        }
+
+        .hero {
+            background: white;
+            padding: 50px 30px;
+            border-radius: 20px;
+
+            text-align: center;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+        }
+
+        h1 {
+            color: darkblue;
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #60708a;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .main-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            padding: 14px 24px;
+
+            border-radius: 8px;
+
+            background: #1769e0;
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0d4fa8;
+        }
+
+        .qr-btn {
+            background: #198754;
+        }
+
+        .qr-btn:hover {
+            background: #146c43;
+        }
+
+        .parent-btn {
+            background: #6f42c1;
+        }
+
+        .parent-btn:hover {
+            background: #59359a;
+        }
+
+        .security-btn {
+            background: #fd7e14;
+        }
+
+        .security-btn:hover {
+            background: #d96500;
+        }
+
+        /* ================= FEATURES ================= */
+
+        .section-title {
+            text-align: center;
+            color: darkblue;
+            margin-top: 50px;
+            margin-bottom: 25px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 25px;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-card h3 {
+            color: darkblue;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #60708a;
+            line-height: 1.5;
+        }
+
+        /* ================= WORKFLOW ================= */
+
+        .workflow {
+            background: white;
+
+            margin-top: 35px;
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .workflow ol {
+            line-height: 2;
+            font-size: 16px;
+        }
+
+        /* ================= PRIVACY ================= */
+
+        .privacy {
+            margin-top: 30px;
+
+            background: #eef6ff;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            border-left: 5px solid #1769e0;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            margin-top: 50px;
+
+            background: darkblue;
+            color: white;
+
+            text-align: center;
+
+            padding: 20px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 800px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .nav-links {
+                justify-content: center;
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .main-buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <nav>
+
+        <div class="logo">
+            🏠 Hostel Outpass
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="home.html">
+                Home
+            </a>
+
+            <a href="index.html">
+                Apply
+            </a>
+
+            <a href="status.html">
+                Status
+            </a>
+
+            <a href="tracking.html">
+                Tracking
+            </a>
+
+            <a href="qr.html">
+                QR Code
+            </a>
+
+            <a href="parents.html">
+                Parents
+            </a>
+
+            <a href="security.html">
+                Security
+            </a>
+
+            <a href="admin.html">
+                Admin
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="container">
+
+
+        <div class="hero">
+
+            <h1>
+                HOSTEL OUTPASS MANAGEMENT SYSTEM
+            </h1>
+
+
+            <p class="subtitle">
+
+                A secure digital platform for managing
+                student hostel outpass requests,
+                approvals and verification.
+
+            </p>
+
+
+            <div class="main-buttons">
+
+                <button
+                    onclick="window.location.href='index.html'">
+
+                    📝 Apply for Outpass
+
+                </button>
+
+
+                <button
+                    onclick="window.location.href='status.html'">
+
+                    📋 Check Status
+
+                </button>
+
+
+                <button
+                    class="qr-btn"
+                    onclick="window.location.href='qr.html'">
+
+                    📱 QR Code
+
+                </button>
+
+
+                <button
+                    class="parent-btn"
+                    onclick="window.location.href='parents.html'">
+
+                    👨‍👩‍👧 Parent Portal
+
+                </button>
+
+
+                <button
+                    class="security-btn"
+                    onclick="window.location.href='security.html'">
+
+                    🛡 Security Verification
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= FEATURES ================= -->
+
+        <h2 class="section-title">
+            System Features
+        </h2>
+
+
+        <div class="features">
+
+
+            <div class="feature-card">
+
+                <h3>
+                    📝 Online Outpass
+                </h3>
+
+                <p>
+                    Students can submit their
+                    outpass requests online
+                    without using manual paperwork.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <h3>
+                    👨‍💼 Admin Approval
+                </h3>
+
+                <p>
+                    Administrators can review,
+                    approve or reject student
+                    outpass requests.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <h3>
+                    📱 QR Verification
+                </h3>
+
+                <p>
+                    Approved outpasses can generate
+                    a unique QR code for secure
+                    verification at the hostel gate.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <h3>
+                    👨‍👩‍👧 Parent Notification
+                </h3>
+
+                <p>
+                    Parents can view relevant
+                    outpass information and
+                    approval status.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <h3>
+                    📍 Location Tracking
+                </h3>
+
+                <p>
+                    Student location tracking can
+                    be used after an approved
+                    outpass when permitted.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <h3>
+                    🛡 Security Verification
+                </h3>
+
+                <p>
+                    Security staff can verify
+                    the student's approved
+                    outpass before exit.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= WORKFLOW ================= -->
+
+        <div class="workflow">
+
+            <h2 class="section-title">
+                How the System Works
+            </h2>
+
+
+            <ol>
+
+                <li>
+                    Student submits an online
+                    outpass application.
+                </li>
+
+                <li>
+                    Administrator reviews the
+                    application.
+                </li>
+
+                <li>
+                    Admin approves or rejects
+                    the request.
+                </li>
+
+                <li>
+                    After approval, the student
+                    can access the QR Code.
+                </li>
+
+                <li>
+                    Security guard verifies
+                    the QR code at the gate.
+                </li>
+
+                <li>
+                    Authorized location tracking
+                    can be used when applicable.
+                </li>
+
+                <li>
+                    Parent can view relevant
+                    outpass information.
+                </li>
+
+            </ol>
+
+        </div>
+
+
+        <!-- ================= PRIVACY ================= -->
+
+        <div class="privacy">
+
+            🔒 <b>Privacy & Security:</b>
+
+            Student information and location
+            data should only be accessible to
+            authorized users according to
+            their assigned role.
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            Hostel Outpass Management System
+        </p>
+
+        <p>
+            © 2026 All Rights Reserved
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

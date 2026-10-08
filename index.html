@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Apply for Outpass</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3efff;
+            color: #333;
+            padding-bottom: 40px;
+        }
+
+        /* Navigation Bar */
+
+        nav {
+            background: #5b3aa4;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Page Heading */
+
+        .heading {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .heading h1 {
+            font-family: Algerian, serif;
+            color: #5b3aa4;
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .heading p {
+            color: #666;
+            font-size: 17px;
+        }
+
+
+        /* Form Card */
+
+        form {
+            background: white;
+            width: 75%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 35px 45px;
+            border-radius: 18px;
+
+            box-shadow: 0 8px 25px rgba(91, 58, 164, 0.18);
+        }
+
+
+        /* Labels */
+
+        label {
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+            color: #44306f;
+            margin-top: 17px;
+            margin-bottom: 7px;
+        }
+
+
+        /* Input Fields */
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+
+            border: 1px solid #c9bde5;
+            border-radius: 8px;
+
+            background: #faf9ff;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #5b3aa4;
+            box-shadow: 0 0 5px rgba(91, 58, 164, 0.2);
+        }
+
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+
+        /* File Upload */
+
+        input[type="file"] {
+            background: white;
+            padding: 10px;
+        }
+
+
+        /* Declaration */
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+
+        /* Submit Button */
+
+        button {
+            display: block;
+            width: 250px;
+
+            margin: 30px auto 5px;
+
+            padding: 14px;
+
+            background: #5b3aa4;
+            color: white;
+
+            border: none;
+            border-radius: 9px;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #432b7c;
+            transform: scale(1.03);
+        }
+
+
+        /* Footer */
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+
+
+        /* Mobile */
+
+        @media (max-width: 700px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .heading h1 {
+                font-size: 28px;
+            }
+
+            form {
+                width: 92%;
+                padding: 25px 20px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <div class="logo">
+            🏠 Hostel Outpass
+        </div>
+
+        <div>
+            <a href="home.html">Home</a>
+            <a href="index.html">Apply</a>
+            <a href="status.html">Status</a>
+            <a href="admin.html">Admin</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Heading -->
+
+    <div class="heading">
+
+        <h1>Hostel Outpass Form</h1>
+
+        <p>
+            Fill in the details below to submit your outpass request.
+        </p>
+
+    </div>
+
+
+    <!-- Form -->
+
+    <form id="outpassForm">
+
+        <label>Student Name</label>
+        <input type="text" id="studentName" required>
+
+
+        <label>Roll No/ID</label>
+        <input type="number" id="rollNo" required>
+
+
+        <label>Course</label>
+        <input type="text" id="course" required>
+
+
+        <label>Hostel</label>
+        <input type="text" id="hostel" required>
+
+
+        <label>Room No</label>
+        <input type="number" id="roomNo" required>
+
+
+        <label>Destination</label>
+        <input type="text" id="destination" required>
+
+
+        <label>Reason</label>
+        <textarea id="reason" required></textarea>
+
+
+        <label>Departure Date</label>
+        <input type="date" id="departureDate" required>
+
+
+        <label>Departure Time</label>
+        <input type="time" id="departureTime" required>
+
+
+        <label>Return Date</label>
+        <input type="date" id="returnDate" required>
+
+
+        <label>Return Time</label>
+        <input type="time" id="returnTime" required>
+
+
+        <label>Emergency Contact Number</label>
+        <input type="tel" id="emergencyContact" required>
+
+
+        <label>Written Application</label>
+        <input type="file" id="writtenApplication" required>
+
+
+        <label>Student Declaration</label>
+
+        <input type="checkbox" id="declaration" required>
+
+        I confirm that the information provided is correct.
+
+
+        <button type="submit">
+            Submit Outpass Request
+        </button>
+
+    </form>
+
+
+    <!-- Footer -->
+
+    <footer>
+        Hostel Outpass Management System © 2026
+    </footer>
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+        document.getElementById("outpassForm").addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const outpassData = {
+
+                studentName: document.getElementById("studentName").value,
+
+                rollNo: document.getElementById("rollNo").value,
+
+                course: document.getElementById("course").value,
+
+                hostel: document.getElementById("hostel").value,
+
+                roomNo: document.getElementById("roomNo").value,
+
+                destination: document.getElementById("destination").value,
+
+                reason: document.getElementById("reason").value,
+
+                departureDate: document.getElementById("departureDate").value,
+
+                departureTime: document.getElementById("departureTime").value,
+
+                returnDate: document.getElementById("returnDate").value,
+
+                returnTime: document.getElementById("returnTime").value,
+
+                emergencyContact: document.getElementById("emergencyContact").value,
+
+                status: "Pending"
+
+            };
+
+
+            localStorage.setItem(
+                "outpassData",
+                JSON.stringify(outpassData)
+            );
+
+
+            window.location.href = "Status.html";
+
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Security Guard Portal</title>
+
+    <!-- QR SCANNER LIBRARY -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef5ff;
+            color: #24344d;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            background: darkblue;
+            color: white;
+            padding: 18px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* MAIN */
+
+        .container {
+            width: 92%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: darkblue;
+            font-size: 38px;
+            font-family: Algerian, serif;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #60708a;
+            margin-bottom: 30px;
+        }
+
+
+        /* CARD */
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.10);
+
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            color: darkblue;
+            margin-top: 0;
+        }
+
+
+        /* LOGIN */
+
+        .login-box {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+
+            border: 1px solid #ccd7e8;
+            border-radius: 8px;
+
+            margin-bottom: 18px;
+
+            font-size: 15px;
+        }
+
+
+        /* BUTTONS */
+
+        button {
+            border: none;
+            padding: 13px 22px;
+
+            border-radius: 8px;
+
+            background: #1769e0;
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #0d4fa8;
+        }
+
+        .green {
+            background: #198754;
+        }
+
+        .green:hover {
+            background: #146c43;
+        }
+
+        .red {
+            background: #dc3545;
+        }
+
+        .red:hover {
+            background: #b02a37;
+        }
+
+
+        /* DASHBOARD */
+
+        #dashboard {
+            display: none;
+        }
+
+
+        /* QR SCANNER */
+
+        #reader {
+            width: 100%;
+            max-width: 450px;
+
+            margin: 25px auto;
+
+            border: 2px solid #d8e3f5;
+            border-radius: 12px;
+
+            overflow: hidden;
+        }
+
+
+        .scan-result {
+
+            margin: 20px auto;
+
+            padding: 16px;
+
+            max-width: 600px;
+
+            border-radius: 10px;
+
+            background: #fff3cd;
+
+            color: #856404;
+
+            font-weight: bold;
+
+            text-align: center;
+        }
+
+        .valid {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .invalid {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+
+        /* STUDENT DETAILS */
+
+        .details {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+
+            margin-top: 20px;
+        }
+
+        .detail-box {
+
+            background: #f4f8ff;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            border-left: 5px solid #1769e0;
+        }
+
+        .detail-box strong {
+
+            display: block;
+
+            color: darkblue;
+
+            margin-bottom: 7px;
+        }
+
+
+        /* ENTRY EXIT */
+
+        .entry-exit {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+
+            margin-top: 25px;
+        }
+
+        .exit-box,
+        .return-box {
+
+            padding: 22px;
+
+            border-radius: 12px;
+
+            text-align: center;
+        }
+
+        .exit-box {
+
+            background: #fff3cd;
+        }
+
+        .return-box {
+
+            background: #e8f7ed;
+        }
+
+
+        /* LATE ALERT */
+
+        #lateAlert {
+
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            background: #f8d7da;
+
+            color: #721c24;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+
+        /* PRIVACY */
+
+        .privacy {
+
+            margin-top: 25px;
+
+            padding: 16px;
+
+            background: #eef6ff;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+
+            margin-top: 50px;
+
+            background: darkblue;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 20px;
+        }
+
+
+        /* MOBILE */
+
+        @media(max-width:700px) {
+
+            nav {
+
+                flex-direction: column;
+
+                padding: 15px;
+            }
+
+            .nav-links {
+
+                justify-content: center;
+            }
+
+            .container {
+
+                width: 94%;
+            }
+
+            h1 {
+
+                font-size: 28px;
+            }
+
+            .card {
+
+                padding: 20px;
+            }
+
+            .details {
+
+                grid-template-columns: 1fr;
+            }
+
+            .entry-exit {
+
+                grid-template-columns: 1fr;
+            }
+
+            button {
+
+                width: 100%;
+
+                margin: 5px 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav>
+
+    <div class="logo">
+        🏠 Hostel Outpass
+    </div>
+
+    <div class="nav-links">
+
+        <a href="home.html">
+            Home
+        </a>
+
+        <a href="index.html">
+            Apply
+        </a>
+
+        <a href="status.html">
+            Status
+        </a>
+
+        <a href="tracking.html">
+            Tracking
+        </a>
+
+        <a href="qr.html">
+            QR Code
+        </a>
+
+        <a href="parents.html">
+            Parents
+        </a>
+
+        <a href="security.html">
+            Security
+        </a>
+
+        <a href="admin.html">
+            Admin
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+    <h1>
+        🛡️ SECURITY GUARD PORTAL
+    </h1>
+
+    <p class="subtitle">
+
+        Verify approved student outpasses
+        using QR Code scanning.
+
+    </p>
+
+
+
+    <!-- ================= LOGIN ================= -->
+
+    <div class="card login-box">
+
+        <h2>
+            🔐 Security Login
+        </h2>
+
+
+        <label>
+            Guard ID
+        </label>
+
+        <input
+            type="text"
+            id="guardId"
+            placeholder="Enter Guard ID">
+
+
+        <label>
+            Password
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter Password">
+
+
+        <button onclick="login()">
+
+            Login
+
+        </button>
+
+
+        <p id="loginMessage"></p>
+
+    </div>
+
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <div id="dashboard">
+
+
+        <!-- ================= QR SCANNER ================= -->
+
+        <div class="card">
+
+            <h2>
+                📷 Scan Student QR Code
+            </h2>
+
+            <p>
+                Ask the student to show the approved
+                Outpass QR Code.
+            </p>
+
+
+            <div id="reader"></div>
+
+
+            <div
+                id="scanResult"
+                class="scan-result">
+
+                📷 Waiting for QR Code...
+
+            </div>
+
+
+            <button
+                class="green"
+                onclick="startScanner()">
+
+                📷 Start QR Scanner
+
+            </button>
+
+
+            <button
+                class="red"
+                onclick="stopScanner()">
+
+                ⏹ Stop Scanner
+
+            </button>
+
+        </div>
+
+
+
+        <!-- ================= STUDENT DETAILS ================= -->
+
+        <div class="card">
+
+            <h2>
+                🎓 Student Information
+            </h2>
+
+
+            <div class="details">
+
+
+                <div class="detail-box">
+
+                    <strong>
+                        Student Name
+                    </strong>
+
+                    <span id="studentName">
+                        Not Verified
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <strong>
+                        Roll Number
+                    </strong>
+
+                    <span id="rollNumber">
+                        Not Verified
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <strong>
+                        Outpass ID
+                    </strong>
+
+                    <span id="outpassID">
+                        Not Verified
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <strong>
+                        Outpass Status
+                    </strong>
+
+                    <span id="outpassStatus">
+                        Waiting
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= ENTRY EXIT ================= -->
+
+        <div class="card">
+
+            <h2>
+                🚪 Entry / Exit Record
+            </h2>
+
+
+            <div class="entry-exit">
+
+
+                <div class="exit-box">
+
+                    <h3>
+                        🚶 Student Exit
+                    </h3>
+
+                    <p id="exitTime">
+                        Not recorded
+                    </p>
+
+                    <button
+                        onclick="recordExit()">
+
+                        Record Exit
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="return-box">
+
+                    <h3>
+                        🏠 Student Return
+                    </h3>
+
+                    <p id="returnTime">
+                        Not recorded
+                    </p>
+
+                    <button
+                        class="green"
+                        onclick="recordReturn()">
+
+                        Record Return
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LATE ALERT -->
+
+            <div id="lateAlert">
+
+                ⚠️ <b>Late Return Alert</b>
+
+                <br><br>
+
+                Student has exceeded the
+                expected return time.
+
+                <br><br>
+
+                Admin, Parents and Security
+                should be notified.
+
+            </div>
+
+
+            <br>
+
+
+            <button
+                class="red"
+                onclick="checkLateReturn()">
+
+                ⚠️ Check Late Return
+
+            </button>
+
+
+            <button
+                onclick="window.location.href='tracking.html'">
+
+                📍 View Student Tracking
+
+            </button>
+
+
+            <p
+                id="message"
+                style="font-weight:bold;">
+            </p>
+
+        </div>
+
+
+
+        <!-- ================= PRIVACY ================= -->
+
+        <div class="card">
+
+            <div class="privacy">
+
+                🔒 <b>Privacy & Security:</b>
+
+                Student information and location
+                data should only be accessible to
+                authorized users.
+
+            </div>
+
+        </div>
+
+
+
+        <!-- LOGOUT -->
+
+        <div style="text-align:center;">
+
+            <button
+                class="red"
+                onclick="logout()">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        🏠 Hostel Outpass Management System
+    </p>
+
+    <p>
+        © 2026 All Rights Reserved
+    </p>
+
+</footer>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+
+/* ================= LOGIN ================= */
+
+function login() {
+
+    const guardId =
+        document.getElementById("guardId").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    const message =
+        document.getElementById("loginMessage");
+
+
+    /*
+       DEMO LOGIN
+
+       Guard ID:
+       SECURITY01
+
+       Password:
+       1234
+    */
+
+    if (
+        guardId === "SECURITY01" &&
+        password === "1234"
+    ) {
+
+        document.getElementById(
+            "dashboard"
+        ).style.display = "block";
+
+
+        message.innerText =
+            "✅ Login successful.";
+
+        message.style.color =
+            "green";
+
+    }
+
+    else {
+
+        message.innerText =
+            "❌ Invalid Guard ID or Password.";
+
+        message.style.color =
+            "red";
+
+    }
+
+}
+
+
+
+/* ================= QR SCANNER ================= */
+
+let scanner = null;
+
+
+function startScanner() {
+
+    if (scanner !== null) {
+
+        return;
+
+    }
+
+
+    scanner =
+        new Html5Qrcode("reader");
+
+
+    scanner.start(
+
+        {
+            facingMode: "environment"
+        },
+
+        {
+            fps: 10,
+
+            qrbox: {
+                width: 250,
+                height: 250
+            }
+        },
+
+
+        function(decodedText) {
+
+            verifyQR(decodedText);
+
+        },
+
+
+        function(errorMessage) {
+
+            // QR detect na hone par kuch nahi karna
+
+        }
+
+    )
+
+    .catch(function(error) {
+
+        document.getElementById(
+            "scanResult"
+        ).innerText =
+            "❌ Camera start nahi ho pa raha. Camera permission Allow karein.";
+
+    });
+
+}
+
+
+
+/* ================= VERIFY QR ================= */
+
+function verifyQR(qrData) {
+
+    const result =
+        document.getElementById(
+            "scanResult"
+        );
+
+
+    const approvedID =
+        localStorage.getItem(
+            "outpassId"
+        );
+
+
+    if (
+        approvedID &&
+        qrData === approvedID
+    ) {
+
+        result.innerText =
+            "✅ VALID OUTPASS — Student Authorized";
+
+        result.className =
+            "scan-result valid";
+
+
+        document.getElementById(
+            "outpassID"
+        ).innerText =
+            qrData;
+
+
+        document.getElementById(
+            "outpassStatus"
+        ).innerText =
+            "✅ Approved & Verified";
+
+
+        document.getElementById(
+            "studentName"
+        ).innerText =
+            "Verified Student";
+
+
+        document.getElementById(
+            "rollNumber"
+        ).innerText =
+            "Verified";
+
+
+        document.getElementById(
+            "message"
+        ).innerText =
+            "✅ QR verification successful. Student may proceed.";
+
+    }
+
+    else {
+
+        result.innerText =
+            "❌ INVALID OUTPASS — Access Denied";
+
+        result.className =
+            "scan-result invalid";
+
+
+        document.getElementById(
+            "outpassStatus"
+        ).innerText =
+            "❌ Invalid";
+
+
+        document.getElementById(
+            "message"
+        ).innerText =
+            "❌ This QR code does not match the approved outpass.";
+
+    }
+
+}
+
+
+
+/* ================= STOP SCANNER ================= */
+
+function stopScanner() {
+
+    if (scanner !== null) {
+
+        scanner.stop()
+
+        .then(function() {
+
+            scanner.clear();
+
+            scanner = null;
+
+            document.getElementById(
+                "scanResult"
+            ).innerText =
+                "⏹ QR Scanner stopped.";
+
+            document.getElementById(
+                "scanResult"
+            ).className =
+                "scan-result";
+
+        })
+
+        .catch(function(error) {
+
+            console.log(error);
+
+        });
+
+    }
+
+}
+
+
+
+/* ================= EXIT ================= */
+
+function recordExit() {
+
+    const now =
+        new Date();
+
+    const time =
+        now.toLocaleTimeString();
+
+
+    document.getElementById(
+        "exitTime"
+    ).innerText =
+        time;
+
+
+    document.getElementById(
+        "message"
+    ).innerText =
+        "🚪 Student exit recorded at " + time;
+
+}
+
+
+
+/* ================= RETURN ================= */
+
+function recordReturn() {
+
+    const now =
+        new Date();
+
+    const time =
+        now.toLocaleTimeString();
+
+
+    document.getElementById(
+        "returnTime"
+    ).innerText =
+        time;
+
+
+    document.getElementById(
+        "lateAlert"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "message"
+    ).innerText =
+        "🏠 Student return recorded at " + time;
+
+}
+
+
+
+/* ================= LATE RETURN ================= */
+
+function checkLateReturn() {
+
+    document.getElementById(
+        "lateAlert"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "message"
+    ).innerText =
+        "⚠️ Late return detected. Notification should be sent to Admin, Parents and Security.";
+
+}
+
+
+
+/* ================= LOGOUT ================= */
+
+function logout() {
+
+    stopScanner();
+
+
+    document.getElementById(
+        "dashboard"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "guardId"
+    ).value = "";
+
+
+    document.getElementById(
+        "password"
+    ).value = "";
+
+
+    document.getElementById(
+        "loginMessage"
+    ).innerText =
+        "Logged out successfully.";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

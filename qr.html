@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Outpass QR Code</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef5ff;
+            color: #24344d;
+        }
+
+        nav {
+            background: darkblue;
+            padding: 18px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 50px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+            text-align: center;
+        }
+
+        h1 {
+            color: darkblue;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #60708a;
+            margin-bottom: 30px;
+        }
+
+        .student-info {
+            background: #f4f8ff;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .student-info p {
+            margin: 8px 0;
+        }
+
+        #qrcode {
+            width: 230px;
+            min-height: 230px;
+            margin: 25px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: white;
+        }
+
+        .outpass-id {
+            font-weight: bold;
+            color: darkblue;
+            margin-top: 15px;
+        }
+
+        .note {
+            background: #eef6ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 25px;
+            font-size: 14px;
+        }
+
+        button {
+            border: none;
+            padding: 13px 22px;
+            border-radius: 8px;
+            background: #1769e0;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: #0d4fa8;
+        }
+
+        footer {
+            margin-top: 50px;
+            background: darkblue;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media(max-width:700px) {
+            nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            🏠 Hostel Outpass
+        </div>
+
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="index.html">Apply</a>
+            <a href="status.html">Status</a>
+            <a href="tracking.html">Tracking</a>
+            <a href="parents.html">Parents</a>
+            <a href="security.html">Security</a>
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+
+        <div class="card">
+
+            <h1>🎫 Outpass QR Code</h1>
+
+            <p class="subtitle">
+                Show this QR code to the security guard for verification.
+            </p>
+
+
+            <div class="student-info">
+
+                <p>
+                    <b>Student Name:</b>
+                    Vani Arora
+                </p>
+
+                <p>
+                    <b>Roll Number:</b>
+                    BCA2024XXX
+                </p>
+
+                <p>
+                    <b>Destination:</b>
+                    Home
+                </p>
+
+                <p>
+                    <b>Status:</b>
+                    <span style="color:green;">
+                        Approved
+                    </span>
+                </p>
+
+            </div>
+
+
+            <!-- ACTUAL QR CODE WILL APPEAR HERE -->
+
+            <div id="qrcode"></div>
+
+
+            <div class="outpass-id">
+                Outpass ID:
+                <span id="outpassId"></span>
+            </div>
+
+
+            <button onclick="window.print()">
+                🖨 Print QR Code
+            </button>
+
+
+            <div class="note">
+
+                🔐 <b>Security Notice:</b>
+
+                This QR code contains the unique Outpass ID.
+                The security guard can scan it to verify
+                the student's approved outpass.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        <p>
+            Hostel Outpass Management System
+        </p>
+
+        <p>
+            © 2026 All Rights Reserved
+        </p>
+
+    </footer>
+
+
+    <!-- QR CODE LIBRARY -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+    </script>
+
+
+    <script>
+
+        /*
+        --------------------------------
+        UNIQUE OUTPASS ID
+        --------------------------------
+        */
+
+        const outpassID =
+            "OUTPASS-2026-001";
+
+
+        document.getElementById("outpassId").innerText =
+            outpassID;
+
+
+        /*
+        --------------------------------
+        GENERATE ACTUAL QR CODE
+        --------------------------------
+        */
+
+        new QRCode(
+            document.getElementById("qrcode"),
+            {
+                text: outpassID,
+                width: 210,
+                height: 210,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

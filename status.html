@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Outpass Status</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eefaf3;
+            color: #333;
+            padding-bottom: 40px;
+        }
+
+        /* Navigation Bar */
+
+        nav {
+            background: #198754;
+            padding: 18px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Heading */
+
+        .heading {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .heading h1 {
+            font-family: Algerian, serif;
+            color: #198754;
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .heading p {
+            color: #666;
+            font-size: 17px;
+        }
+
+
+        /* Status Card */
+
+        .status-box {
+            background: white;
+
+            width: 75%;
+            max-width: 800px;
+
+            margin: 20px auto;
+
+            padding: 35px 45px;
+
+            border-radius: 18px;
+
+            border: 1px solid #b8dfc8;
+
+            box-shadow: 0 8px 25px rgba(25, 135, 84, 0.15);
+        }
+
+
+        /* Form Rows */
+
+        .form-row {
+            margin-bottom: 18px;
+        }
+
+
+        label {
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+            color: #286344;
+        }
+
+
+        input,
+        textarea {
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #b9d8c6;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            background-color: #f8fffb;
+
+            outline: none;
+        }
+
+
+        textarea {
+            height: 90px;
+            resize: vertical;
+        }
+
+
+        /* Status Field */
+
+        #outpassStatus {
+            font-weight: bold;
+            text-align: center;
+            font-size: 17px;
+            background-color: #fff8e1;
+            color: #f39c12;
+            border: 2px solid #f1c40f;
+        }
+
+
+        /* Back Button */
+
+        button {
+            display: block;
+
+            width: 220px;
+
+            margin: 30px auto 5px;
+
+            padding: 13px;
+
+            background-color: #198754;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #146c43;
+            transform: scale(1.03);
+        }
+
+
+        /* Footer */
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+
+
+        /* Mobile */
+
+        @media (max-width: 700px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .heading h1 {
+                font-size: 28px;
+            }
+
+            .status-box {
+                width: 92%;
+                padding: 25px 20px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <div class="logo">
+            🏠 Hostel Outpass
+        </div>
+
+        <div>
+            <a href="home.html">Home</a>
+            <a href="index.html">Apply</a>
+            <a href="status.html">Status</a>
+            <a href="admin.html">Admin</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Heading -->
+
+    <div class="heading">
+
+        <h1>OUTPASS STATUS</h1>
+
+        <p>
+            Track your hostel outpass request status.
+        </p>
+
+    </div>
+
+
+    <!-- Status Details -->
+
+    <div class="status-box">
+
+
+        <div class="form-row">
+            <label>Student Name</label>
+            <input type="text" id="studentName" readonly>
+        </div>
+
+
+        <div class="form-row">
+            <label>Roll No</label>
+            <input type="text" id="rollNo" readonly>
+        </div>
+
+
+        <div class="form-row">
+            <label>Course</label>
+            <input type="text" id="course" readonly>
+        </div>
+
+
+        <div class="form-row">
+            <label>Hostel</label>
+            <input type="text" id="hostel" readonly>
+        </div>
+
+
+        <div class="form-row">
+            <label>Room No</label>
+            <input type="text" id="roomNo" readonly>
+        </div>
+
+
+        <div class="form-row">
+            <label>Destination</label>
+            <input type="text" id="destination" readonly>
+        </div>
+
+
+        <div class="form-row">
+            <label>Reason</label>
+            <textarea id="reason" readonly></textarea>
+        </div>
+
+
+        <div class="form-row">
+            <label>Departure Date</label>
+            <input type="text" id="departureDate" readonly>
+        </div>
+
+
+        <div class="form-row">
+            <label>Departure Time</label>
+            <input type="text" id="departureTime" readonly>
+        </div>
+
+
+        <div class="form-row">
+            <label>Return Date</label>
+            <input type="text" id="returnDate" readonly>
+        </div>
+
+
+        <div class="form-row">
+            <label>Return Time</label>
+            <input type="text" id="returnTime" readonly>
+        </div>
+
+
+        <div class="form-row">
+            <label>Emergency Contact</label>
+            <input type="text" id="emergencyContact" readonly>
+        </div>
+
+
+        <div class="form-row">
+
+            <label>Outpass Status</label>
+
+            <input
+                type="text"
+                id="outpassStatus"
+                value="Pending"
+                readonly
+            >
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='home.html'">
+
+            Back to Home
+
+        </button>
+
+
+    </div>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        Hostel Outpass Management System © 2026
+
+    </footer>
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+        const data = JSON.parse(
+            localStorage.getItem("outpassData")
+        );
+
+
+        if (data) {
+
+            document.getElementById("studentName").value =
+                data.studentName;
+
+            document.getElementById("rollNo").value =
+                data.rollNo;
+
+            document.getElementById("course").value =
+                data.course;
+
+            document.getElementById("hostel").value =
+                data.hostel;
+
+            document.getElementById("roomNo").value =
+                data.roomNo;
+
+            document.getElementById("destination").value =
+                data.destination;
+
+            document.getElementById("reason").value =
+                data.reason;
+
+            document.getElementById("departureDate").value =
+                data.departureDate;
+
+            document.getElementById("departureTime").value =
+                data.departureTime;
+
+            document.getElementById("returnDate").value =
+                data.returnDate;
+
+            document.getElementById("returnTime").value =
+                data.returnTime;
+
+            document.getElementById("emergencyContact").value =
+                data.emergencyContact;
+
+
+            const statusBox =
+                document.getElementById("outpassStatus");
+
+            statusBox.value = data.status;
+
+
+            /* Change Status Colour */
+
+            if (data.status === "Approved") {
+
+                statusBox.style.color = "#198754";
+                statusBox.style.backgroundColor = "#e8f8ef";
+                statusBox.style.borderColor = "#198754";
+
+            }
+
+            else if (data.status === "Rejected") {
+
+                statusBox.style.color = "#dc3545";
+                statusBox.style.backgroundColor = "#fdeaea";
+                statusBox.style.borderColor = "#dc3545";
+
+            }
+
+            else {
+
+                statusBox.style.color = "#f39c12";
+                statusBox.style.backgroundColor = "#fff8e1";
+                statusBox.style.borderColor = "#f1c40f";
+
+            }
+
+        }
+
+        else {
+
+            alert("No outpass request found.");
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
